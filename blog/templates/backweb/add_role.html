@@ -1,0 +1,55 @@
+{% extends 'backweb/base.html' %}
+<meta name="author" content="DeathGhost" />
+{% block title %}
+    用户角色管理
+{% endblock %}
+
+{% block extCss %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'backweb/css/style.css' %}">
+{% endblock %}
+
+{% block extJs %}
+    {{ block.super }}
+    <script src="{% static 'backweb/js/html5.js' %}"></script>
+    <script src="{% static 'backweb/js/jquery.js' %}"></script>
+    <script src="{% static 'backweb/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <section class="rt_wrap content mCustomScrollbar">
+        <div class="rt_content">
+            <div class="page_title">
+                <h2 class="fl">角色权限</h2>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <section>
+                    <ul class="ulColumn2">
+                        <li>
+                            <span class="item_name" style="width:120px;">用户名：</span>
+                            <input type="text" name="role_name" class="textbox textbox_295" placeholder=""/>
+                            <!--<span class="errorTips">错误提示信息...</span>-->
+                        </li>
+                        <li>
+                            {% for per in permissions %}
+                                <input type="checkbox" name="pers" value="{{ per.p_name }}">{{ per.p_name }}
+                            {% endfor %}
+                        </li>
+
+                        <li>
+                            <span class="item_name" style="width:120px;"></span>
+                            <input type="submit" class="link_btn"/>
+                        </li>
+                    </ul>
+                </section>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}

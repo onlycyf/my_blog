@@ -1,0 +1,71 @@
+{% extends 'backweb/base.html' %}
+<meta name="author" content="DeathGhost" />
+{% block title %}
+    用户角色管理
+{% endblock %}
+
+{% block extCss %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'backweb/css/style.css' %}">
+{% endblock %}
+
+{% block extJs %}
+    {{ block.super }}
+    <script src="{% static 'backweb/js/html5.js' %}"></script>
+    <script src="{% static 'backweb/js/jquery.js' %}"></script>
+    <script src="{% static 'backweb/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <style>
+        .dataStatistic{width:400px;height:200px;border:1px solid #ccc;margin:0 auto;margin:10px;overflow:hidden}
+        #cylindrical{width:400px;height:200px;margin-top:-15px}
+        #line{width:400px;height:200px;margin-top:-15px}
+        #pie{width:400px;height:200px;margin-top:-15px}
+    </style>
+    <section class="rt_wrap content mCustomScrollbar">
+        <div class="rt_content">
+            <div class="page_title">
+                <h2 class="fl">用户角色列表</h2>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <th>用户</th>
+                        <th>角色</th>
+
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <select name="user_id">
+                                {% for user in users %}
+                                    <option value="{{ user.id }}"> {{ user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td class="center">
+                            <select name="role_id">
+                                {% for role in roles %}
+                                    <option value="{{ role.id }}"> {{ role.r_name }} </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="提交" class="link_btn">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+
+{% endblock %}

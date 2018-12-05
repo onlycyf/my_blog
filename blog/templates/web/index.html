@@ -1,0 +1,57 @@
+{% extends 'web/base.html' %}
+
+{% block title %}
+    首页_崔宇凡个人博客 - 一个...人
+{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+{% endblock %}
+{% block ext_css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+{% endblock %}
+
+{% block contents %}
+    {% block header %}
+        {{ block.super }}
+    {% endblock %}
+
+    <article xmlns="http://www.w3.org/1999/html">
+        {% block aside %}
+            {{ block.super }}
+        {% endblock %}
+
+        <main class="r_box">
+
+            {% for article in articles %}
+                    {% if article.is_delete == False %}
+                        <tr>
+                            <td class="center">{{ article.id }}</td>
+                            <td class="center">{{ article.title }}</td></br>
+                            <td class="center">{{ article.desc }}</td>
+                            <td class="center"><img src="/media/{{ article.image_url}}" width="50px" height="50px"></td>
+
+                            <td class="center">{{ article.create_time|date:'Y-m-d h:m:s' }}</td></br>
+
+                            <td class="center">
+{#                                <a href="/backweb/edit?id={{ article.id }}" title="编辑" name="update" class="link_icon">&#101;</a>#}
+{#                                <a href="/backweb/delete_art?id={{ article.id }}" title="删除" name="delete" class="link_icon">&#100;</a>#}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+
+
+                {% endfor %}
+
+        </main>
+    </article>
+    <footer>
+        <p>Design by <a href="http://www.yangqq.com" target="_blank">杨青个人博客</a> <a href="/">蜀ICP备11002373号-1</a></p>
+    </footer>
+    <a href="#" class="cd-top">Top</a>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'backweb/base.html' %}
+<meta name="author" content="DeathGhost" />
+
+{% block title %}
+    后台管理系统
+{% endblock %}
+{% block extCss %}
+    {{ block.super }}
+{% endblock %}
+
+{% block extJs %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <style>
+        .dataStatistic{width:400px;height:200px;border:1px solid #ccc;margin:0 auto;margin:10px;overflow:hidden}
+        #cylindrical{width:400px;height:200px;margin-top:-15px}
+        #line{width:400px;height:200px;margin-top:-15px}
+        #pie{width:400px;height:200px;margin-top:-15px}
+    </style>
+    <section class="rt_wrap content mCustomScrollbar">
+        <div class="rt_content">
+            <div class="page_title">
+                <h2 class="fl">文章列表</h2>
+                {#                {% for p in user.u_r.r_p.all %}#}
+                {#                    {% if p.p_name == 'ADDARTICLE' %}#}
+                <a href="{% url 'backweb:artAdd' %}" class="fr top_rt_btn add_icon">添加文章</a>
+                {#                    {% endif %}#}
+                {#                {% endfor %}#}
+            </div>
+            <section class="mtb">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <select class="select" name="sel_atype">
+                        {% for atype in types %}
+                            <option value="{{ atype.id }}">{{ atype.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" class="textbox textbox_225" name="sel_name" placeholder="文章名字..."/>
+                    <input type="submit" value="查询" class="group_btn"/>
+                </form>
+            </section>
+
+            {#            {% for p in user.u_r.r_p.all %}#}
+            {#                {% if p.p_name == 'LISTARTICLE' %}#}
+
+            <table class="table">
+                <tr>
+                    <th>编号</th>
+                    <th>文章标题</th>
+                    <th>文章描述</th>
+                    <th>文章首图</th>
+                    <th>展示</th>
+                    <th>推荐</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                {% for article in page %}
+                    {% if article.is_delete == False %}
+                        <tr>
+                            <td class="center">{{ article.id }}</td>
+                            <td class="center">{{ article.title }}</td>
+                            <td class="center">{{ article.desc }}</td>
+                            <td class="center"><img src="/media/{{ article.image_url}}" width="50px" height="50px"></td>
+                            <td class="center">
+                                {% if article.is_show %}
+                                    展示
+                                {% else %}
+                                    不展示
+                                {% endif %}
+                            </td>
+                            <td class="center">
+                                {% if article.is_recommend %}
+                                    推荐
+                                {% else %}
+                                    不推荐
+                                {% endif %}
+                            </td>
+                            <td class="center">{{ article.create_time|date:'Y-m-d h:m:s' }}</td>
+
+                            <td class="center">
+                                <a href="/backweb/edit?id={{ article.id }}" title="编辑" name="update" class="link_icon">&#101;</a>
+                                <a href="/backweb/delete_art?id={{ article.id }}" title="删除" name="delete" class="link_icon">&#100;</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+
+
+                {% endfor %}
+            </table>
+            {#                {% endif %}#}
+            {#            {% endfor %}#}
+
+            <aside class="paging">
+                {% if page.has_previous %}
+                    <a href="{% url 'backweb:index' %}?page={{ page.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <a href="{% url 'backweb:index' %}">第一页</a>
+
+                {% for i in page.paginator.page_range %}
+                    <a href="{% url 'backweb:index' %}?page={{ i }}">{{ i }}</a>
+                {% endfor %}
+
+                <a href="{% url 'backweb:index' %}?page={{ page.paginator.num_pages }}">最后一页</a>
+
+                {% if page.has_next %}
+                    <a href="{% url 'backweb:index' %}?page={{ page.next_page_number }}">下一页</a>
+                {% endif %}
+            </aside>
+        </div>
+    </section>
+{% endblock %}

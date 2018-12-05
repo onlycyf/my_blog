@@ -1,0 +1,64 @@
+{% extends 'backweb/base.html' %}
+<meta name="author" content="DeathGhost" />
+{% block title %}
+    后台管理系统
+{% endblock %}
+
+{% block extCss %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'backweb/css/style.css' %}">
+{% endblock %}
+
+{% block extJs %}
+    {{ block.super }}
+    <script src="{% static 'backweb/js/html5.js' %}"></script>
+
+    <script src="{% static 'backweb/js/jquery.js' %}"></script>
+    <script src="{% static 'backweb/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    {{ block.super }}
+
+    <section class="rt_wrap content mCustomScrollbar">
+        <div class="rt_content">
+            <div class="page_title">
+                <h2 class="fl">文章详情</h2>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <section>
+                    <ul class="ulColumn2">
+                        <li>
+                            <span class="item_name" style="width:120px;">添加用户：</span>
+                            <input type="text" name="username" class="textbox textbox_295" placeholder="用户名..."/>
+                            <!--<span class="errorTips">错误提示信息...</span>-->
+                        </li>
+                        <li>
+                            <span class="item_name" style="width:120px;">密码：</span>
+                            <input type="text" name="password1" class="textbox" placeholder="密码..."/>
+                            <!--<span class="errorTips">错误提示信息...</span>-->
+                        </li>
+                        <li>
+                            <span class="item_name" style="width:120px;">确认密码：</span>
+                            <input type="text" name="password2" class="textbox" placeholder="确认密码..."/>
+                            <!--<span class="errorTips">错误提示信息...</span>-->
+                        </li>
+                        <li>
+                            <span class="item_name" style="width:120px;"></span>
+                            <input type="submit" class="link_btn"/>
+                        </li>
+
+                    </ul>
+                </section>
+            </form>
+        </div>
+    </section>
+    {% load static %}
+    <script src="{% static 'backweb/js/ueditor.config.js' %}"></script>
+    <script src="{% static 'backweb/js/ueditor.all.min.js' %}"> </script>
+
+
+{% endblock %}
